@@ -97,6 +97,12 @@ const Student = class Student {
  */
 
 const Product = class Product {
+    constructor(input) {
+        var splitInput = input.split(',');
+        this.name = splitInput[0];
+        this.price = Number(splitInput[1]);
+        this.availability = splitInput[2];
+    }
 
     /**
      * *****************
@@ -109,7 +115,9 @@ const Product = class Product {
      * This can be implmeneted in one line.
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      */
-    static inStock = (products) => {}
+    static inStock = (products) => {
+        return products.filter(product => product.availability === "In Stock");
+    }
 
 
     /**
@@ -123,7 +131,9 @@ const Product = class Product {
      * This method can also be written in one line; if doing so, consider using String interpolation when calling the product constructor
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      */
-    static halfOff = (products) => {}
+    static halfOff = (products) => {
+        return products.map(product => ({ ...product, price: product.price * 0.5 }));
+    }
 
     /**
      * *****************
@@ -138,7 +148,20 @@ const Product = class Product {
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat (currency formatting)
      */
-    static printProducts = (products) => {}
+    static printProducts = (products) => {
+        for (let product of products){
+            let tempName = product.name;
+            let tempPrice = new Intl.NumberFormat('en-US', {style: "currency", currency: "USD"}).format(product.price);
+            let tempAvail = null;
+            if (product.availability === "In Stock"){
+                tempAvail = 'Yes'
+            } else {
+                tempAvail = 'No'
+            }
+            let outputString = `Product: ${tempName}, Cost: ${tempPrice}, Availability: ${tempAvail}`;
+            console.log(outputString)
+        }
+    }
 
  };
 
