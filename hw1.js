@@ -149,18 +149,7 @@ const Product = class Product {
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat (currency formatting)
      */
     static printProducts = (products) => {
-        for (let product of products){
-            let tempName = product.name;
-            let tempPrice = new Intl.NumberFormat('en-US', {style: "currency", currency: "USD"}).format(product.price);
-            let tempAvail = null;
-            if (product.availability === "In Stock"){
-                tempAvail = 'Yes'
-            } else {
-                tempAvail = 'No'
-            }
-            let outputString = `Product: ${tempName}, Cost: ${tempPrice}, Availability: ${tempAvail}`;
-            console.log(outputString)
-        }
+        products.forEach(product => console.log(`Product: ${product.name}, Cost: ${new Intl.NumberFormat('en-US', {style: "currency", currency: "USD"}).format(product.price)}, Availability: ${((product.availability === 'In Stock' ? 'Yes': 'No'))}`))
     }
 
  };
